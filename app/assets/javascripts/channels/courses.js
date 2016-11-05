@@ -1,4 +1,3 @@
-function 
 
 function postFormData() {
     $('form').submit(function(event) {
@@ -7,19 +6,18 @@ function postFormData() {
 
       var values = $(this).serialize();
  
-      var posting = $.post('/products', values);
+      var posting = $.post('/courses', values);
  
       posting.done(function(data) {
-        console.log(data)
-        var product = data["product"];
-        $("#productName").text(product["name"]);
-        $("#productPrice").text("$" + product["price"]);
-        $("#productDescription").text(product["description"]);
-        $("#productInventory").text(product["inventory"]);
+        console.log(data);
+        // var course = data["course"];
+        // $("#courseTitle").text(course["title"]);
+        // $("#courseTopic").text(course["topic"]);
       });
-    });
-  });
+
+	});
+}
 
 $(document).ready(function() {
-	attachListeners();
+	postFormData();
 });
