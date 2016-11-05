@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 CheerPace!
 
@@ -47,3 +48,7 @@ rspec spec
 You can find plans for future features in TODO.md.  Contributions are very welcome!
 
 Distributed under the https://opensource.org/licenses/MIT license. Feel free to help yourself, tweet me what you think at @kayjsmyth.
+=======
+# more_better_cheer_pace
+Rails-JS Assessment
+>>>>>>> 981b8d5897cad34a99a457a8f55346a3c76a2b71
