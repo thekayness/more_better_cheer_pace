@@ -1,0 +1,29 @@
+ <h2 class="date">Welcome, <%=current_user.username%>, you are working on:</h2>
+
+
+<ul class="style1">
+      <%@courses.each do |course|%>
+      <h3><%=course.course_title%></h3>
+        <%course.tasks.each do |task|%>
+        <li class="first">
+            <h4>Task: <%=task.title%></h4>
+            <p>Task Description:<%=task.description%></p>
+            <p>Task Goal Date:<%=task.goal_date%></p>
+          <%end%>
+          <%= form_tag("/courses/#{course.id}/edit", method: "get") do %>
+      <label>Need to add tasks?  How many would you like to add?</label>
+        <%=number_field_tag 'new_tasks', max: 15%>
+        <%= submit_tag("Create Tasks for this Course") %>
+      <%end%>
+
+          <%=link_to "or just edit this course", edit_course_path(course)%>
+        </li>
+          <% unless course.cheers.blank? %>
+            <li><%= course.cheers.count%> people are cheering you on!</li><br />
+            <%course.cheers.each do |cheer| %><br />
+              <p><%=cheer.user.username%> says,<br> <%=cheer.content%></p>
+              <%end%>
+          <% end %>
+      <%end%>
+
+  </ul>

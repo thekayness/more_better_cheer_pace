@@ -1,0 +1,60 @@
+
+ <% if @cheer.errors.any? %>
+   <div id="error_explanation">
+    <h2>
+      <%= pluralize(@cheer.errors.count, "error") %>
+       prohibited this course from being saved:
+     </h2>
+ 
+     <ul>
+     <% @cheer.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+     <% end %>
+     </ul>
+   </div>
+ <% end %>
+
+
+  <div id="main">
+
+
+    <div id="welcome">
+      
+      <div class="title">
+        <h2>Who's learning:</h2>
+        <span class="byline">Here's everyone's courses, the ones at the top haven't had any updates in a while.  Sign up or sign in to leave them some encouragement!</span>
+      </div>
+    </div>
+    
+    <div id="featured">
+      <ul class="style1">
+      <%@courses.each do |course|%>
+        <li class="first">
+        <%if user_signed_in? && course.user != current_user  || !user_signed_in?%>
+          <h3><b><%=course.user.username%></b> is working on <b><%=course.course_title%></b></h3>
+          <%else%>
+          <h3 ><b>You are working on <b><%=course.course_title%></b></h3>
+        <%end%>
+          
+          <%if !course.tasks.nil? %>
+            <h4>Task: <%=course.oldest_task.title%></h4>
+            <p>Task Description:<%=course.oldest_task.description%></p>
+            <p>Task Goal Date:<%=course.oldest_task.goal_date%></p>
+          <%end%>
+        </li>
+
+        <%if user_signed_in? && course.user != current_user%>
+          <%=form_for(@cheer) do |f|%>
+              <%=f.text_field :content%>
+              <%=f.hidden_field :course_id, value: course.id%>
+              <%=f.hidden_field :user_id, value: current_user.id%>
+             <%=f.submit "Leave some reassurance!"%>
+          <%end%>
+        <%end%>
+      
+      <%end%>
+
+      </ul>
+    </div>
+        
+  </div>

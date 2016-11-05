@@ -1,0 +1,45 @@
+<% if @course.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@course.errors.count, "error") %>
+      prohibited this course from being saved:
+    </h2>
+ 
+    <ul>
+    <% @course.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<h2>Edit Tasks for <%=@course.course_title%></h2>
+
+<%= form_for(@course) do |f| %>
+  
+ 
+ <%=f.fields_for :tasks do |t|%>
+ 	<%=t.label :title%>
+ 	<%=t.text_field :title%>
+<br>
+<br>
+<br>
+ 	<%=t.label :description%>
+ 	<%=t.text_area :description%>
+<br>
+<br>
+<br>
+ 	<%=t.label :goal_date%>
+ 	<%=t.text_field :goal_date%>
+ 	<br>
+ 	<br>
+ 	<br>
+ 	<%=t.label "Remove Task"%>
+ 	<%= t.check_box '_destroy' %>
+ 	<br>
+ 	<br>
+ 	<%end%>
+ 	<br>
+ 	<br>
+  <%= f.submit %>
+<% end %>
