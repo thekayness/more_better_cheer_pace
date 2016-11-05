@@ -12,7 +12,7 @@
           <%end%>
           <%= form_tag("/courses/#{course.id}/edit", method: "get") do %>
       <label>Need to add tasks?  How many would you like to add?</label>
-        <%=number_field_tag 'new_tasks', max: 15%>
+        <%=number_field_tag 'new_tasks' %>
         <%= submit_tag("Create Tasks for this Course") %>
       <%end%>
 

@@ -1,11 +1,12 @@
 
 function postFormData() {
     $('form').submit(function(event) {
+
       //prevent form from submitting the default way
       event.preventDefault();
 
       var values = $(this).serialize();
- 
+ 	
       var posting = $.post('/courses', values);
  
       posting.done(function(data) {
@@ -19,5 +20,6 @@ function postFormData() {
 }
 
 $(document).ready(function() {
+
 	postFormData();
 });

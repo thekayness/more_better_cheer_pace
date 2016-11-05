@@ -7,16 +7,13 @@ class CoursesController < ApplicationController
 	end
 
 	def new
+
     	@course = Course.new(user_id: current_user.id)	
 	end
 
 	def create
 		@course = Course.create(course_params)
-		if @course.save
-			redirect_to courses_path
-		else
-			redirect_to root_path, alert: "Something went wrong saving this course"
-		end
+		render json: @course, status: 201
 	end
 
 	def edit
