@@ -1,7 +1,7 @@
- <h2 class="date">Welcome, <%=current_user.username%>, you are working on:</h2>
+ <h2>Welcome, <%=current_user.username%>, you are working on:</h2>
 
-
-<ul class="style1">
+<!-- 
+<ul>
       <%@courses.each do |course|%>
       <h3><%=course.course_title%></h3>
         <%course.tasks.each do |task|%>
@@ -26,4 +26,6 @@
           <% end %>
       <%end%>
 
-  </ul>
+  </ul> -->
+  <div id="userCourses">
+  </div>

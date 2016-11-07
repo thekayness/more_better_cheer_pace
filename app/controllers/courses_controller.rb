@@ -3,11 +3,13 @@ class CoursesController < ApplicationController
 
 	def index
 		@courses = current_user.courses
-		render json: @courses
+		respond_to do |f|
+      		f.html { render :index }
+      		f.json { render json: @courses }
+    	end
 	end
 
 	def new
-
     	@course = Course.new(user_id: current_user.id)	
 	end
 
