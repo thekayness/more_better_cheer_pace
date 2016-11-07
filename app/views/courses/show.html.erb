@@ -1,5 +1,13 @@
 <h1><%=@course.course_title%></h1>
-<%=@course.tasks.each do |task|%>
-<p>Task: <%=task.title%></p>
-<p>Description: <%=task.description%></p>
-<p>Goal Date: <%=task.goal_date%></p>
+<%if !@course.tasks.empty? %>
+	<%=@course.tasks.each do |task|%>
+	
+		<p>Task: <%=task.title%></p>
+		<p>Description: <%=task.description%></p>
+		<p>Goal Date: <%=task.goal_date%></p>
+		<%end%>
+	<%else%>
+		<p>This course doesn't seem to have any tasks yet.</p>
+	
+
+<%end%>

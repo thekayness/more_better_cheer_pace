@@ -49,7 +49,6 @@ class CoursesController < ApplicationController
       		f.html { render :show}
       		f.json { render json: @course }
     	end
-		
 	end
 
 	def course_params
