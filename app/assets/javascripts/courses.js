@@ -18,13 +18,14 @@ Course.prototype.renderSelf = function() {
 
 function postFormData() {
     $('form').submit(function(event) {
+    	
 
       //prevent form from submitting the default way
       event.preventDefault();
 
       var values = $(this).serialize();
  	
-      var posting = $.post('/courses', values);
+      var posting = $.post('/courses.json', values);
  
       posting.done(function(data) {
       	var courseish = data['course'];
@@ -35,7 +36,23 @@ function postFormData() {
 
     });
 }
-
+// function getACourse() {
+// 	$.get("/course/.json").done(function(data) {
+// 		var courses = data.courses
+// 		var coursesText = "";
+//         for(var i = 0; i < courses.length; i++) {
+//           coursesText += ("<h2> Course: " + courses[i].course_title + "</h2>");
+//           for(var j = 0; j < courses[i].tasks.length; j++) {
+//             coursesText += ("<p>Task " + (j + 1) + ": " + courses[i].tasks[j].title + "</p>");
+//             if (courses[i].cheers.length > 0) {
+//             	coursesText += ("<p>" + courses[i].cheers.length + " people are cheering you on!</p>");
+//             }	
+//           }
+// 		coursesText +="<a href='/courses/" + courses[i].id + "'>Go to this course</a>";
+// 		}
+// 		$('#userCourses').append(coursesText);
+// 	});
+// }
 function getCoursesData() {
 	$.get("/courses.json").done(function(data) {
 		var courses = data.courses
@@ -45,12 +62,10 @@ function getCoursesData() {
           for(var j = 0; j < courses[i].tasks.length; j++) {
             coursesText += ("<p>Task " + (j + 1) + ": " + courses[i].tasks[j].title + "</p>");
             if (courses[i].cheers.length > 0) {
-            	coursesText += ("<p>" + courses[i].cheers.user + " people are cheering you on!</p>");
-            }
-            
-
+            	coursesText += ("<p>" + courses[i].cheers.length + " people are cheering you on!</p>");
+            }	
           }
-			console.log(courses[i]);
+		coursesText +="<a href='/courses/" + courses[i].id + "'>Go to this course</a>";
 		}
 		$('#userCourses').append(coursesText);
 	});
@@ -60,8 +75,11 @@ $(document).ready(function() {
 	if ($('.courses.index')) {
         getCoursesData();
     }
-    if ($('.courses.new')) {
+   	if ($('.courses.new')) {
 		postFormData();
+    }
+    if ($('.courses.show')) {
+		
     }
 	
 });

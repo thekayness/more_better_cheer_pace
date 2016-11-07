@@ -16,7 +16,10 @@ class CoursesController < ApplicationController
 
 	def create
 		@course = Course.create(course_params)
-		render json: @course, status: 201
+		respond_to do |f|
+      		f.html { render :new }
+      		f.json { render json: @course }
+    	end
 	end
 
 	def edit
@@ -42,6 +45,10 @@ class CoursesController < ApplicationController
 
 	def show
 		@course = Course.find(params[:id])
+		respond_to do |f|
+      		f.html { render :show}
+      		f.json { render json: @course }
+    	end
 		
 	end
 
