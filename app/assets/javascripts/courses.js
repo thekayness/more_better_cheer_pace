@@ -57,6 +57,6 @@ function getCoursesData() {
 }
 
 $(document).ready(function() {
-	// 	getCoursesData();
+	getCoursesData();
 	postFormData();
 });
