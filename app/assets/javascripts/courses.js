@@ -39,24 +39,24 @@ function getCoursesData() {
 	$.get("/courses.json").done(function(data) {
 		var courses = data.courses
 		var coursesText = "";
-		if (courses.length > 0){
-			for(var i = 0, len = courses.length; i < len; i++) {
-				coursesText += "<h3>" + courses[i].course_title + "</h3>";
-				var tasks = courses[i].tasks;
-				console.log(tasks);
-				if (tasks.length > 1){
-					for(var j = 0, len = tasks.length; j < len; j++) {
-						coursesText += "<p>" + tasks[j].title + "</p>";
-					}
-				}
-			}
-			$('#userCourses').append(coursesText);
+        for(var i = 0; i < courses.length; i++) {
+          coursesText += ("<h2> Course: " + courses[i].course_title + "</h2>");
+          for(var j = 0; j < courses[i].tasks.length; j++) {
+            coursesText += ("<p>Task " + (j + 1) + ": " + courses[i].tasks[j].title + "</p>");
+
+          }
+			console.log(courses[i]);
 		}
-		console.log(data);
+		$('#userCourses').append(coursesText);
 	});
 }
 
 $(document).ready(function() {
-	getCoursesData();
-	postFormData();
+	if ($('.courses.index')) {
+        getCoursesData();
+    }
+    if ($('.courses.new')) {
+		postFormData();
+    }
+	
 });
