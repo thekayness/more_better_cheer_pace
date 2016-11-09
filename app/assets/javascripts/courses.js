@@ -17,24 +17,46 @@ Course.prototype.renderSelf = function() {
 }
 
 function postFormData() {
-    $('form').submit(function(event) {
-    	
+  $('#course_course_title').keyup(function() {
+    var chars = $(this).val();
+    console.log(chars);
+    $('#showUp').text(chars);
+  });
+  
 
-      //prevent form from submitting the default way
-      event.preventDefault();
+  $('form').submit(function(event) {
 
-      var values = $(this).serialize();
- 	
-      var posting = $.post('/courses.json', values);
- 
-      posting.done(function(data) {
-      	var courseish = data['course'];
-      	var newCourse = new Course(courseish.course_title, courseish.created_at, courseish.id, courseish.tasks, courseish.topic, courseish.cheers);
-      	console.log(newCourse);
-      	newCourse.renderSelf();
-	  });
+    //prevent form from submitting the default way
+    event.preventDefault();
 
+    var values = $(this).serialize();
+	  $.post('/courses.json', values).done(function(data) {
+    	var courseish = data['course'];
+    	var newCourse = new Course(courseish.course_title, courseish.created_at, courseish.id, courseish.tasks, courseish.topic, courseish.cheers);
+    	console.log(newCourse);
+    	newCourse.renderSelf();
     });
+
+  });
+}
+
+function getCourseData() {
+  var path = $(location).attr('pathname');
+  var id = path.substring(path.lastIndexOf('/') + 1);
+  console.log(id);
+  $.get("/courses/" + id + ".json").done(function(data) {
+    var course = data.course
+    var courseText = "";
+    courseText += ("<h2> Course: " + course.course_title + "</h2>");
+    for(var j = 0; j < course.tasks.length; j++) {
+      courseText += ("<p>Task " + (j + 1) + ": " + course.tasks[j].title + "</p>");
+      if (course.cheers.length > 0) {
+        courseText += ("<p>" + course.cheers.length + " people are cheering you on!</p>");
+      } 
+
+    }
+    $('#userCourse').append(courseText);
+  });
 }
 
 function getCoursesData() {
@@ -57,14 +79,14 @@ function getCoursesData() {
 
 $(document).ready(function() {
 	if ($('.courses.index').length) {
-		console.log("hiiii")
+		console.log("hiiii");
         getCoursesData();
     }
    	if ($('.courses.new').length) {
-		postFormData();
+		  postFormData();
     }
     if ($('.courses.show').length) {
-		
+		  getCourseData();
     }
 	
 });

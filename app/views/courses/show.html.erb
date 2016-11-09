@@ -1,13 +1,2 @@
-<h1><%=@course.course_title%></h1>
-<%if !@course.tasks.empty? %>
-	<%=@course.tasks.each do |task|%>
-	
-		<p>Task: <%=task.title%></p>
-		<p>Description: <%=task.description%></p>
-		<p>Goal Date: <%=task.goal_date%></p>
-		<%end%>
-	<%else%>
-		<p>This course doesn't seem to have any tasks yet.</p>
-	
-
-<%end%>
+<div id="courseID" data-id="<%=@course.id%>"></div>
+<div id="userCourse"></div>
